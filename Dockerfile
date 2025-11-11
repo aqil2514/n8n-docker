@@ -1,14 +1,15 @@
 # Gunakan image resmi n8n
 FROM n8nio/n8n:latest
 
-# Set timezone (opsional)
-ENV GENERIC_TIMEZONE=Asia/Jakarta
+# Jalankan sebagai user root dulu untuk pastikan PATH dikenali Render
+USER root
 
-# Copy data lokal (opsional, hanya untuk testing)
-# COPY ./n8n_data /home/node/.n8n
+# Set timezone dan variabel penting
+ENV GENERIC_TIMEZONE=Asia/Jakarta
+ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 
 # Expose port default n8n
 EXPOSE 5678
 
-# Jalankan n8n
-CMD ["n8n", "start"]
+# Jalankan n8n lewat path lengkap
+CMD ["/usr/local/bin/n8n", "start"]
